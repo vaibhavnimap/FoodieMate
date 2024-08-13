@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
+import 'package:foodiemate/data/controllers/themecontroller.dart';
+import 'package:foodiemate/data/utils/customtheme.dart';
 import 'package:foodiemate/screens/homescreens/product_listing_page.dart';
 import 'package:foodiemate/widgets/mycustomclipper.dart';
 import 'package:get/get.dart';
 
-class HomeScreenUi extends StatelessWidget {
-  const HomeScreenUi({super.key});
+class HomeScreenUi extends StatefulWidget {
+  HomeScreenUi({super.key});
+
+  @override
+  State<HomeScreenUi> createState() => _HomeScreenUiState();
+}
+
+class _HomeScreenUiState extends State<HomeScreenUi> {
+  final ThemeController _controller =
+      Get.put(ThemeController(), permanent: true);
+
+  // @override
+  // void dispose() {
+  //   _controller.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +47,17 @@ class HomeScreenUi extends StatelessWidget {
                     Text("08776 Serenity Ports, New York ")
                   ],
                 ),
-                Icon(Icons.person)
+                Icon(Icons.person),
+                Obx(
+                  () => Switch(
+                    value: _controller.currentTheme.value == ThemeMode.dark,
+                    onChanged: (value) {
+                      _controller.switchTheme();
+                      Get.changeThemeMode(_controller.currentTheme.value);
+                    },
+                    activeColor: CustomTheme.white,
+                  ),
+                )
               ],
             ),
             SizedBox(
@@ -104,12 +130,25 @@ class HomeScreenUi extends StatelessWidget {
                             //     "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
                             //   ),
                             // ),
-                            ClipPath(
-                              clipper: MyCustomClipper(),
-                              child: Image.network(
-                                "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
+                            Stack(children: [
+                              ClipPath(
+                                clipper: MyCustomClipper(),
+                                child: Image.network(
+                                  "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
+                                ),
                               ),
-                            ),
+                              Positioned(
+                                  right: 0,
+                                  bottom: 0,
+                                  child: CircleAvatar(
+                                      radius: 30,
+                                      backgroundColor: Colors.black,
+                                      child: Icon(
+                                        Icons.arrow_upward,
+                                        color: Colors.white,
+                                      ))),
+                            ]),
+
                             SizedBox(
                               height: 5,
                             ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodiemate/screens/bagscreens/cart_screen.dart';
 import 'package:foodiemate/screens/homescreens/home_screen_ui.dart';
+import 'package:foodiemate/screens/orderscreens/my_orders_screen.dart';
+import 'package:foodiemate/screens/profilescreens/profilescreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,17 +20,11 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  static const List<Widget> _pages = <Widget>[
+  List<Widget> _pages = <Widget>[
     HomeScreenUi(),
     CartScreen(),
-    Icon(
-      Icons.chat,
-      size: 150,
-    ),
-    Icon(
-      Icons.chat,
-      size: 150,
-    ),
+    MyOrdersScreen(),
+    Profilescreen(),
   ];
 
   @override

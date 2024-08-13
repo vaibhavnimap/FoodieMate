@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodiemate/data/utils/constantcolors.dart';
+import 'package:foodiemate/screens/authscreens/loginscreen.dart';
 import 'package:foodiemate/screens/home_screen.dart';
 import 'package:foodiemate/widgets/custom_button/custom_button.dart';
 import 'package:get/get.dart';
@@ -24,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(
       Duration(seconds: 10),
       () {
-        Get.offAll(() => HomeScreen());
+        Get.offAll(() => Loginscreen());
       },
     );
   }

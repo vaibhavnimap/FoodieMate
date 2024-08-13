@@ -133,29 +133,36 @@ class CartScreen extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: TextField(
-                decoration: InputDecoration(
-                  fillColor: Colors.grey[300],
-                  filled: true,
+            TextField(
+              decoration: InputDecoration(
+                fillColor: Colors.grey[300],
+                filled: true,
 
-                  suffixIcon: Icon(
+                suffixIcon: Container(
+                  width: 150,
+                  height: 60,
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20),
+                          bottomRight: Radius.circular(20))),
+                  child: Icon(
                     Icons.send,
-                    size: 30,
+                    size: 20,
+                    color: Colors.white,
                   ),
+                ),
 
-                  hintText: 'Enter Promo Code',
-                  // enabledBorder: ,
-                  // contentPadding:
-                  //     const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                hintText: 'Enter Promo Code',
+                // enabledBorder: ,
+                // contentPadding:
+                //     const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 0,
+                    style: BorderStyle.none,
                   ),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
                 ),
               ),
             ),

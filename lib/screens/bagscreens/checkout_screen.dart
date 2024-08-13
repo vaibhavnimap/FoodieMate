@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodiemate/widgets/custom_button/custom_button.dart';
 import 'package:get/get.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -104,41 +105,51 @@ class CheckoutScreen extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 10,
+              height: 30,
             ),
             Container(
               height: 50,
               decoration: BoxDecoration(
-                color: Colors.grey,
-                // border:
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(20),
               ),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              // margin: EdgeInsets.symmetric(horizontal: 10),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [Text("Bank Card"), Icon(Icons.keyboard_arrow_down)],
               ),
             ),
-            TextField(
-              decoration: InputDecoration(
-                fillColor: Colors.grey[300],
-                filled: true,
-
-                suffixIcon: Icon(
-                  Icons.send,
-                  size: 30,
-                ),
-
-                hintText: 'Enter Promo Code',
-                // enabledBorder: ,
-                // contentPadding:
-                //     const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                ),
-              ),
+            SizedBox(
+              height: 50,
             ),
+            Image.asset('assets/images/debitcard.png'),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Total to pay",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text("\$${83.66}",
+                    style: TextStyle(fontWeight: FontWeight.bold))
+              ],
+            ),
+            Expanded(
+              child: SizedBox(),
+            ),
+            Button(
+              onTap: () {
+                Get.to(CheckoutScreen());
+              },
+              text: "Comfirm Order",
+            ),
+            SizedBox(
+              height: 10,
+            )
           ],
         ),
       ),
