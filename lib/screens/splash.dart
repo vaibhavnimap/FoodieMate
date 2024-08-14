@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodiemate/data/utils/constantcolors.dart';
+import 'package:foodiemate/i18n/strings.g.dart';
 import 'package:foodiemate/screens/authscreens/loginscreen.dart';
 import 'package:foodiemate/screens/home_screen.dart';
 import 'package:foodiemate/widgets/custom_button/custom_button.dart';
@@ -58,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 20,
             ),
             Text(
-              "Food to blow your mind!",
+              t.food_to_blow_your_mind,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 26,

@@ -1,0 +1,21 @@
+{
+  "language": "Marathi",
+  "hello": "नमस्कार",
+  "forgot_password": "पासवर्ड विसरलात",
+  "login": "लॉगिन",
+  "dont_have_account": "तुमच्याकडे खाते नाही?",
+  "email_address": "ईमेल पत्ता",
+  "password": "पासवर्ड",
+  "signup": "साइन अप करा",
+  "food_to_blow_your_mind": "अतिशय चविष्ट खाद्यपदार्थ!",
+  "craving": "तुम्हाला पिझ्झा, सुशी किंवा ...ची इच्छा असली तरी, आम्ही तुमच्यासोबत आहोत.",
+  "get_started": "सुरु करा",
+  "deliver_to": "डिलिव्हर करा:",
+  "search_for_vendor_or_product": "विक्रेता किंवा उत्पादने शोधा",
+  "popular_restaurants": "लोकप्रिय रेस्टॉरंट्स",
+  "view_all": "सर्व पाहा",
+  "home": "होम",
+  "bag": "बॅग",
+  "orders": "ऑर्डर",
+  "profile": "प्रोफाइल"
+}

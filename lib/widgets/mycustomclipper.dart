@@ -19,8 +19,17 @@ class MyCustomClipper extends CustomClipper<Path> {
       // ..arcToPoint(Offset(0, size.height - 40),
       //     radius: Radius.circular(radius), clockwise: false, largeArc: true)
       ..lineTo(size.width, size.height - 80)
-      ..arcToPoint(Offset(size.width, size.height + 80),
-          radius: Radius.circular(radius), clockwise: false)
+      ..arcToPoint(
+        Offset(size.width - 30, size.height - 60),
+        radius: Radius.circular(50),
+      )
+      // ..lineTo(size.width, size.height - 80)
+      ..arcToPoint(Offset(size.width - 60, size.height - 30),
+          radius: Radius.circular(40), clockwise: false)
+      ..arcToPoint(
+        Offset(size.width - 80, size.height),
+        radius: Radius.circular(50),
+      )
       ..lineTo(radius, size.height)
       ..arcToPoint(
         Offset(0, size.height - 40),

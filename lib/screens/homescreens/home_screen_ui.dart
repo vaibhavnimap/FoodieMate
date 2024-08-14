@@ -27,16 +27,16 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsetsDirectional.symmetric(horizontal: 20),
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -47,7 +47,7 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
                     Text("08776 Serenity Ports, New York ")
                   ],
                 ),
-                Icon(Icons.person),
+                const Icon(Icons.person),
                 Obx(
                   () => Switch(
                     value: _controller.currentTheme.value == ThemeMode.dark,
@@ -60,7 +60,7 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             // Container(
@@ -72,7 +72,7 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
               decoration: InputDecoration(
                 fillColor: Colors.grey[300],
                 filled: true,
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.search,
                   size: 30,
                 ),
@@ -81,7 +81,7 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
                 // enabledBorder: ,
                 // contentPadding:
                 //     const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                border: OutlineInputBorder(
+                border: const OutlineInputBorder(
                   borderSide: BorderSide(
                     width: 0,
                     style: BorderStyle.none,
@@ -90,11 +90,11 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
 
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -107,7 +107,7 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Expanded(
@@ -119,7 +119,7 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
                         Get.to(ProductListingPage());
                       },
                       child: Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -137,22 +137,32 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
                                   "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
                                 ),
                               ),
-                              Positioned(
+                              const Positioned(
                                   right: 0,
                                   bottom: 0,
                                   child: CircleAvatar(
-                                      radius: 30,
-                                      backgroundColor: Colors.black,
-                                      child: Icon(
-                                        Icons.arrow_upward,
-                                        color: Colors.white,
-                                      ))),
+                                    radius: 25,
+                                    backgroundColor: Colors.black,
+                                    // child:
+                                    // Icon(
+                                    //   Icons.arrow_upward,
+                                    //   color: Colors.white,
+                                    // )
+                                  )),
+                              const Positioned(
+                                right: 14,
+                                bottom: 14,
+                                child: Icon(
+                                  Icons.arrow_upward,
+                                  color: Colors.white,
+                                ),
+                              )
                             ]),
 
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
+                            const Text(
                               "The Pizza Palace",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
@@ -184,7 +194,7 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
                                     maxValueVisibility: true,
                                     valueLabelVisibility: true,
                                     animationDuration:
-                                        Duration(milliseconds: 1000),
+                                        const Duration(milliseconds: 1000),
                                     valueLabelPadding:
                                         const EdgeInsets.symmetric(
                                             vertical: 1, horizontal: 8),
@@ -193,7 +203,7 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
                                     starOffColor: const Color(0xffe7e8ea),
                                     starColor: Colors.yellow,
                                   ),
-                                  Row(
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.location_on,

@@ -1,0 +1,21 @@
+{
+  "language": "English",
+  "hello": "Hello",
+  "forgot_password": "Forgot password",
+  "login": "Login",
+  "dont_have_account": "Don't have an account",
+  "email_address": "Email Address",
+  "password": "Password",
+  "signup": "Sign Up",
+  "food_to_blow_your_mind": "Food to blow your mind!",
+  "craving": "Whether you're craving pizza, sushi, or..., we have got your back.",
+  "get_started": "Get Started",
+  "deliver_to": "Deliver to:",
+  "search_for_vendor_or_product": "Search for a vendor or product",
+  "popular_restaurants": "Popular Restaurants",
+  "view_all": "View all",
+  "home": "Home",
+  "bag": "Bag",
+  "orders": "Orders",
+  "profile": "Profile"
+}

@@ -1,0 +1,21 @@
+{
+  "language": "Hindi",
+  "hello": "नमस्ते",
+  "forgot_password": "पासवर्ड भूल गए",
+  "login": "लॉगिन",
+  "dont_have_account": "क्या आपके पास खाता नहीं है?",
+  "email_address": "ईमेल पता",
+  "password": "पासवर्ड",
+  "signup": "साइन अप करें",
+  "food_to_blow_your_mind": "खाना जो आपके होश उड़ा देगा!",
+  "craving": "चाहे आपको पिज्जा, सुशी, या... की तलब हो, हम आपके साथ हैं।",
+  "get_started": "शुरू करें",
+  "deliver_to": "यहां डिलीवर करें:",
+  "search_for_vendor_or_product": "वेंडर या उत्पाद खोजें",
+  "popular_restaurants": "लोकप्रिय रेस्टोरेंट्स",
+  "view_all": "सभी देखें",
+  "home": "होम",
+  "bag": "बैग",
+  "orders": "आर्डर",
+  "profile": "प्रोफ़ाइल"
+}

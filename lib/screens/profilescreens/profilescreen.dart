@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodiemate/data/controllers/auth_controller.dart';
 import 'package:foodiemate/data/utils/constantcolors.dart';
+import 'package:foodiemate/screens/changelanguague/change_language_screen.dart';
 import 'package:get/get.dart';
 
 class Profilescreen extends StatelessWidget {
@@ -149,42 +150,47 @@ class Profilescreen extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      height: 50,
-                      // width: 50,
-                      decoration: BoxDecoration(
-                        // color: Colors.grey[100],
-                        color: ConstantColors.greyblack.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: const Center(
-                        child: Icon(Icons.settings),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 30,
-                    ),
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Settings",
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: ConstantColors.greyblack),
+                InkWell(
+                  onTap: () {
+                    Get.to(() => ChangeLanguageScreen());
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        height: 50,
+                        // width: 50,
+                        decoration: BoxDecoration(
+                          // color: Colors.grey[100],
+                          color: ConstantColors.greyblack.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                        Text("Notification | FAQ | Contact",
+                        child: const Center(
+                          child: Icon(Icons.settings),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Settings",
                             style: TextStyle(
-                                fontSize: 12,
-                                // fontWeight: FontWeight.w300,
-                                color: ConstantColors.greyblack))
-                      ],
-                    )
-                  ],
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: ConstantColors.greyblack),
+                          ),
+                          Text("Notification | FAQ | Contact",
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  // fontWeight: FontWeight.w300,
+                                  color: ConstantColors.greyblack))
+                        ],
+                      )
+                    ],
+                  ),
                 )
               ],
             )
