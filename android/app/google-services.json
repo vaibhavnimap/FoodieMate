@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "740095071539",
+    "project_id": "fir-demo1-39c3e",
+    "storage_bucket": "fir-demo1-39c3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740095071539:android:dd4ef5457f53b098195a46",
+        "android_client_info": {
+          "package_name": "com.example.foodiemate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdL98tPFxD7E3cMjxUDUEAjrigmX1JH9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

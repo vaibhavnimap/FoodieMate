@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:foodiemate/data/controllers/auth_controller.dart';
+import 'package:foodiemate/screens/authscreens/forgot_password_screen.dart';
+import 'package:foodiemate/screens/authscreens/loginscreen.dart';
 import 'package:foodiemate/widgets/custom_button/custom_button.dart';
+import 'package:get/get.dart';
 
 class Signupscreen extends StatelessWidget {
-  const Signupscreen({super.key});
+  Signupscreen({super.key});
+
+  final AuthController _controller = Get.put(AuthController(), permanent: true);
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +19,11 @@ class Signupscreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/images/foodiemate.png'),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextField(
+              controller: _controller.emailController,
               decoration: InputDecoration(
                 fillColor: Colors.grey[300],
                 filled: true,
@@ -24,7 +31,7 @@ class Signupscreen extends StatelessWidget {
                 //   Icons.search,
                 //   size: 30,
                 // ),
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
                       width: 2,
                       style: BorderStyle.solid,
@@ -36,7 +43,7 @@ class Signupscreen extends StatelessWidget {
                 // enabledBorder: ,
                 // contentPadding:
                 //     const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                border: OutlineInputBorder(
+                border: const OutlineInputBorder(
                   borderSide: BorderSide(
                     width: 0,
                     style: BorderStyle.none,
@@ -45,14 +52,15 @@ class Signupscreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             TextField(
+              controller: _controller.passwordController,
               decoration: InputDecoration(
                 fillColor: Colors.grey[300],
                 filled: true,
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
                       width: 2,
                       style: BorderStyle.solid,
@@ -69,7 +77,7 @@ class Signupscreen extends StatelessWidget {
                 // enabledBorder: ,
                 // contentPadding:
                 //     const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                border: OutlineInputBorder(
+                border: const OutlineInputBorder(
                   borderSide: BorderSide(
                     width: 0,
                     style: BorderStyle.none,
@@ -78,30 +86,37 @@ class Signupscreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  "Forgot Password ?",
-                  style: TextStyle(
-                      color: Colors.orange, fontWeight: FontWeight.w500),
+                InkWell(
+                  child: const Text(
+                    "Forgot Password ?",
+                    style: TextStyle(
+                        color: Colors.orange, fontWeight: FontWeight.w500),
+                  ),
+                  onTap: () {
+                    Get.to(() => ForgotPasswordScreen());
+                  },
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Container(
               height: 50,
               child: Button(
                 text: "Signup",
-                onTap: () {},
+                onTap: () {
+                  _controller.registerValidate();
+                },
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Row(
@@ -111,12 +126,19 @@ class Signupscreen extends StatelessWidget {
                 SizedBox(
                   width: 10,
                 ),
-                Text(
-                  "Log in",
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.orange,
-                      fontWeight: FontWeight.w600),
+                InkWell(
+                  onTap: () {
+                    _controller.emailController.clear();
+                    _controller.passwordController.clear();
+                    Get.offAll(Loginscreen());
+                  },
+                  child: Text(
+                    "Log in",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.orange,
+                        fontWeight: FontWeight.w600),
+                  ),
                 )
               ],
             )

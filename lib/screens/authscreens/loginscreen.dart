@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:foodiemate/data/controllers/auth_controller.dart';
+import 'package:foodiemate/screens/authscreens/forgot_password_screen.dart';
 import 'package:foodiemate/screens/authscreens/signupscreen.dart';
 import 'package:foodiemate/widgets/custom_button/custom_button.dart';
 import 'package:get/get.dart';
 
 class Loginscreen extends StatelessWidget {
-  const Loginscreen({super.key});
+  Loginscreen({super.key});
+
+  final AuthController _controller = Get.put(AuthController(), permanent: true);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +23,7 @@ class Loginscreen extends StatelessWidget {
               height: 20,
             ),
             TextField(
+              controller: _controller.emailController,
               decoration: InputDecoration(
                 fillColor: Colors.grey[300],
                 filled: true,
@@ -51,6 +56,7 @@ class Loginscreen extends StatelessWidget {
               height: 15,
             ),
             TextField(
+              controller: _controller.passwordController,
               decoration: InputDecoration(
                 fillColor: Colors.grey[300],
                 filled: true,
@@ -86,10 +92,15 @@ class Loginscreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  "Forgot Password ?",
-                  style: TextStyle(
-                      color: Colors.orange, fontWeight: FontWeight.w500),
+                InkWell(
+                  onTap: () {
+                    Get.to(() => ForgotPasswordScreen());
+                  },
+                  child: Text(
+                    "Forgot Password ?",
+                    style: TextStyle(
+                        color: Colors.orange, fontWeight: FontWeight.w500),
+                  ),
                 )
               ],
             ),
@@ -100,7 +111,9 @@ class Loginscreen extends StatelessWidget {
               height: 50,
               child: Button(
                 text: "Login",
-                onTap: () {},
+                onTap: () {
+                  _controller.loginValidate();
+                },
               ),
             ),
             SizedBox(
@@ -115,7 +128,9 @@ class Loginscreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(Signupscreen());
+                    _controller.emailController.clear();
+                    _controller.passwordController.clear();
+                    Get.offAll(Signupscreen());
                   },
                   child: Text(
                     "Sign up",

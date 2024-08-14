@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodiemate/data/utils/constantcolors.dart';
 import 'package:foodiemate/screens/authscreens/loginscreen.dart';
@@ -23,9 +24,19 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     await Future.delayed(
-      Duration(seconds: 10),
+      Duration(seconds: 3),
       () {
-        Get.offAll(() => Loginscreen());
+        try {
+          FirebaseAuth.instance.authStateChanges().listen((User? user) {
+            if (user == null) {
+              Get.offAll(() => Loginscreen());
+            } else {
+              Get.offAll(() => HomeScreen());
+            }
+          });
+        } catch (e) {
+          Get.offAll(() => Loginscreen());
+        }
       },
     );
   }
@@ -65,7 +76,17 @@ class _SplashScreenState extends State<SplashScreen> {
             Button(
               text: "Get Started",
               onTap: () {
-                Get.offAll(() => HomeScreen());
+                try {
+                  FirebaseAuth.instance.authStateChanges().listen((User? user) {
+                    if (user == null) {
+                      Get.offAll(() => Loginscreen());
+                    } else {
+                      Get.offAll(() => HomeScreen());
+                    }
+                  });
+                } catch (e) {
+                  Get.offAll(() => Loginscreen());
+                }
               },
             ),
             SizedBox(

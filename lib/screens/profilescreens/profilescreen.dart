@@ -1,18 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodiemate/data/controllers/auth_controller.dart';
 import 'package:foodiemate/data/utils/constantcolors.dart';
+import 'package:get/get.dart';
 
 class Profilescreen extends StatelessWidget {
-  const Profilescreen({super.key});
+  Profilescreen({super.key});
+
+  final AuthController _controller = Get.put(AuthController(), permanent: true);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.logout),
+        onPressed: () {
+          _controller.emailController.clear();
+          _controller.passwordController.clear();
+          FirebaseAuth.instance.signOut();
+        },
+        child: const Icon(Icons.logout),
       ),
       appBar: AppBar(
-        title: Text("Profile"),
+        title: const Text("Profile"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -22,22 +31,22 @@ class Profilescreen extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 50, // Adjust the radius for the size you want
-                  backgroundImage: NetworkImage(
+                  backgroundImage: const NetworkImage(
                     "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
                   ),
                   backgroundColor: Colors.grey.shade200, // A default colo
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   "Amelia Cassin",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
@@ -49,13 +58,13 @@ class Profilescreen extends StatelessWidget {
                     Icon(Icons.keyboard_arrow_down),
                   ],
                 ),
-                Text(
+                const Text(
                   "458-419-7182",
                   style: TextStyle(color: ConstantColors.greyblack),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Column(
@@ -75,10 +84,10 @@ class Profilescreen extends StatelessWidget {
                         child: Icon(Icons.payment),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
-                    Column(
+                    const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -97,7 +106,7 @@ class Profilescreen extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Row(
@@ -115,10 +124,10 @@ class Profilescreen extends StatelessWidget {
                         child: Icon(Icons.home),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
-                    Column(
+                    const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -137,7 +146,7 @@ class Profilescreen extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Row(
@@ -155,10 +164,10 @@ class Profilescreen extends StatelessWidget {
                         child: Icon(Icons.settings),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
-                    Column(
+                    const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
