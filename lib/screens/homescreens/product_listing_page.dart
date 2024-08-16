@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
+import 'package:foodiemate/data/models/restaurant.dart';
 import 'package:foodiemate/screens/homescreens/product_detail_page.dart';
 import 'package:get/get.dart';
 
 class ProductListingPage extends StatefulWidget {
-  ProductListingPage({super.key});
+  ProductListingPage({super.key, required this.restaurant});
+  final Restaurant restaurant;
 
   @override
   State<ProductListingPage> createState() => _ProductListingPageState();
@@ -19,7 +21,8 @@ class _ProductListingPageState extends State<ProductListingPage>
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: 5, vsync: this);
+    _controller =
+        TabController(length: widget.restaurant.category.length, vsync: this);
     // _controller.addListener(() {
     //   setState(() {});
     // });
@@ -77,14 +80,18 @@ class _ProductListingPageState extends State<ProductListingPage>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "The Pizza Place ",
+                        widget.restaurant.name,
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
                       ),
                       Text(
                         "20-30 mins delivery",
                         style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w600),
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600),
                       )
                     ],
                   ),
@@ -93,7 +100,7 @@ class _ProductListingPageState extends State<ProductListingPage>
                       children: [
                         RatingStars(
                           axis: Axis.horizontal,
-                          value: 3,
+                          value: widget.restaurant.rating,
                           onValueChanged: (v) {
                             //
                             // setState(() {
@@ -120,16 +127,18 @@ class _ProductListingPageState extends State<ProductListingPage>
                           starOffColor: const Color(0xffe7e8ea),
                           starColor: Colors.yellow,
                         ),
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.location_on,
                               color: Colors.grey,
                             ),
                             Text(
-                              "2km away",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.grey),
+                              "${widget.restaurant.location}km away",
+                              style: TextStyle(
+                                  overflow: TextOverflow.ellipsis,
+                                  fontSize: 20,
+                                  color: Colors.grey),
                             )
                           ],
                         )
@@ -142,147 +151,199 @@ class _ProductListingPageState extends State<ProductListingPage>
               tabAlignment: TabAlignment.start,
               isScrollable: true,
               controller: _controller,
-              tabs: [
-                Tab(
-                  text: 'Combo Deals',
+              tabs: List<Tab>.generate(
+                widget.restaurant.category.length,
+                (int index) => Tab(
+                  text: widget.restaurant.category[index].catName,
                 ),
-                Tab(
-                  text: 'Classic Pizza',
-                ),
-                Tab(
-                  text: 'Premium Pizza',
-                ),
-                Tab(
-                  text: 'Sides',
-                ),
-                Tab(
-                  text: 'Drinks',
-                )
-              ]),
+              )
+              //           for(int i =0;i<widget.restaurant.category.length;i++){
+              // Tab(
+              //   text: 'Combo Deals',
+              // ),
+              // }
+              // [
+              // Tab(
+              //   text: 'Combo Deals',
+              // ),
+              // Tab(
+              //   text: 'Classic Pizza',
+              // ),
+              // Tab(
+              //   text: 'Premium Pizza',
+              // ),
+              // Tab(
+              //   text: 'Sides',
+              // ),
+              // Tab(
+              //   text: 'Drinks',
+              // )
+              // ]
+              ),
           Expanded(
             child: TabBarView(
-              controller: _controller,
-              children: [
-                Column(children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (context, builder) {
-                        return ListTile(
-                          leading: Container(
-                            height: 100,
-                            width: 100,
-                            child: Image.asset('assets/images/pizza.png'),
-                          ),
-                          title: Text("Kings Deal"),
-                          subtitle: Text(
-                            "Any medium classic pizza + a chsdhgvodasugocuagodsugoausguocolate pizza + a pet drink",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          trailing: Text("\$${20.34}"),
-                        );
-                      },
-                      itemCount: 10,
-                    ),
-                  ),
-                ]),
-                Column(children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (context, builder) {
-                        return ListTile(
-                          leading: Container(
-                            height: 100,
-                            width: 100,
-                            child: Image.asset('assets/images/pizza.png'),
-                          ),
-                          title: Text("Kings Deal"),
-                          subtitle: Text(
-                            "Any medium classic pizza + a chsdhgvodasugocuagodsugoausguocolate pizza + a pet drink",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          trailing: Text("\$${20.34}"),
-                        );
-                      },
-                      itemCount: 10,
-                    ),
-                  ),
-                ]),
-                Column(children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (context, builder) {
-                        return ListTile(
-                          leading: Container(
-                            height: 100,
-                            width: 100,
-                            child: Image.asset('assets/images/pizza.png'),
-                          ),
-                          title: Text("Kings Deal"),
-                          subtitle: Text(
-                            "Any medium classic pizza + a chsdhgvodasugocuagodsugoausguocolate pizza + a pet drink",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          trailing: Text("\$${20.34}"),
-                        );
-                      },
-                      itemCount: 10,
-                    ),
-                  ),
-                ]),
-                Column(children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (context, builder) {
-                        return ListTile(
-                          onTap: () {
-                            Get.to(ProductDetailPage());
+                controller: _controller,
+                children: List.generate(widget.restaurant.category.length,
+                    (int index) {
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          itemBuilder: (BuildContext context, int indexx) {
+                            return InkWell(
+                              onTap: () {
+                                Get.to(ProductDetailPage(
+                                  product: widget.restaurant.category[index]
+                                      .product[indexx],
+                                ));
+                              },
+                              child: ListTile(
+                                leading: Container(
+                                  height: 100,
+                                  width: 100,
+                                  child: Image.asset('assets/images/pizza.png'),
+                                ),
+                                title: Text(widget.restaurant.category[index]
+                                    .product[indexx].productName),
+                                subtitle: Text(
+                                  widget.restaurant.category[index]
+                                      .product[indexx].productDescription,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                trailing: Text(
+                                    "\$${widget.restaurant.category[index].product[indexx].price}"),
+                              ),
+                            );
                           },
-                          leading: Container(
-                            height: 100,
-                            width: 100,
-                            child: Image.asset('assets/images/pizza.png'),
-                          ),
-                          title: Text("Kings Deal"),
-                          subtitle: Text(
-                            "Any medium classic pizza + a chsdhgvodasugocuagodsugoausguocolate pizza + a pet drink",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          trailing: Text("\$${20.34}"),
-                        );
-                      },
-                      itemCount: 10,
-                    ),
-                  ),
-                ]),
-                Column(children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (context, builder) {
-                        return ListTile(
-                          leading: Container(
-                            height: 100,
-                            width: 100,
-                            child: Image.asset('assets/images/pizza.png'),
-                          ),
-                          title: Text("Kings Deal"),
-                          subtitle: Text(
-                            "Any medium classic pizza + a chsdhgvodasugocuagodsugoausguocolate pizza + a pet drink",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          trailing: Text("\$${20.34}"),
-                        );
-                      },
-                      itemCount: 10,
-                    ),
-                  ),
-                ]),
-              ],
-            ),
+                          itemCount:
+                              widget.restaurant.category[index].product.length,
+                        ),
+                      ),
+                    ],
+                  );
+                })
+                // [
+                //   Column(children: [
+                //     Expanded(
+                //       child: ListView.builder(
+                //         itemBuilder: (context, builder) {
+                //           return ListTile(
+                //             leading: Container(
+                //               height: 100,
+                //               width: 100,
+                //               child: Image.asset('assets/images/pizza.png'),
+                //             ),
+                //             title: Text("Kings Deal"),
+                //             subtitle: Text(
+                //               "Any medium classic pizza + a chsdhgvodasugocuagodsugoausguocolate pizza + a pet drink",
+                //               maxLines: 2,
+                //               overflow: TextOverflow.ellipsis,
+                //             ),
+                //             trailing: Text("\$${20.34}"),
+                //           );
+                //         },
+                //         itemCount: 10,
+                //       ),
+                //     ),
+                //   ]),
+                //   Column(children: [
+                //     Expanded(
+                //       child: ListView.builder(
+                //         itemBuilder: (context, builder) {
+                //           return ListTile(
+                //             leading: Container(
+                //               height: 100,
+                //               width: 100,
+                //               child: Image.asset('assets/images/pizza.png'),
+                //             ),
+                //             title: Text("Kings Deal"),
+                //             subtitle: Text(
+                //               "Any medium classic pizza + a chsdhgvodasugocuagodsugoausguocolate pizza + a pet drink",
+                //               maxLines: 2,
+                //               overflow: TextOverflow.ellipsis,
+                //             ),
+                //             trailing: Text("\$${20.34}"),
+                //           );
+                //         },
+                //         itemCount: 10,
+                //       ),
+                //     ),
+                //   ]),
+                //   Column(children: [
+                //     Expanded(
+                //       child: ListView.builder(
+                //         itemBuilder: (context, builder) {
+                //           return ListTile(
+                //             leading: Container(
+                //               height: 100,
+                //               width: 100,
+                //               child: Image.asset('assets/images/pizza.png'),
+                //             ),
+                //             title: Text("Kings Deal"),
+                //             subtitle: Text(
+                //               "Any medium classic pizza + a chsdhgvodasugocuagodsugoausguocolate pizza + a pet drink",
+                //               maxLines: 2,
+                //               overflow: TextOverflow.ellipsis,
+                //             ),
+                //             trailing: Text("\$${20.34}"),
+                //           );
+                //         },
+                //         itemCount: 10,
+                //       ),
+                //     ),
+                //   ]),
+                //   Column(children: [
+                //     Expanded(
+                //       child: ListView.builder(
+                //         itemBuilder: (context, builder) {
+                //           return ListTile(
+                //             onTap: () {
+                //               Get.to(ProductDetailPage());
+                //             },
+                //             leading: Container(
+                //               height: 100,
+                //               width: 100,
+                //               child: Image.asset('assets/images/pizza.png'),
+                //             ),
+                //             title: Text("Kings Deal"),
+                //             subtitle: Text(
+                //               "Any medium classic pizza + a chsdhgvodasugocuagodsugoausguocolate pizza + a pet drink",
+                //               maxLines: 2,
+                //               overflow: TextOverflow.ellipsis,
+                //             ),
+                //             trailing: Text("\$${20.34}"),
+                //           );
+                //         },
+                //         itemCount: 10,
+                //       ),
+                //     ),
+                //   ]),
+                //   Column(children: [
+                //     Expanded(
+                //       child: ListView.builder(
+                //         itemBuilder: (context, builder) {
+                //           return ListTile(
+                //             leading: Container(
+                //               height: 100,
+                //               width: 100,
+                //               child: Image.asset('assets/images/pizza.png'),
+                //             ),
+                //             title: Text("Kings Deal"),
+                //             subtitle: Text(
+                //               "Any medium classic pizza + a chsdhgvodasugocuagodsugoausguocolate pizza + a pet drink",
+                //               maxLines: 2,
+                //               overflow: TextOverflow.ellipsis,
+                //             ),
+                //             trailing: Text("\$${20.34}"),
+                //           );
+                //         },
+                //         itemCount: 10,
+                //       ),
+                //     ),
+                //   ]),
+                // ],
+                ),
           ),
         ],
       ),

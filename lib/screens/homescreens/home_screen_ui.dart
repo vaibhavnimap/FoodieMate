@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
+import 'package:foodiemate/data/controllers/restaurant_controller.dart';
 import 'package:foodiemate/data/controllers/themecontroller.dart';
 import 'package:foodiemate/data/utils/customtheme.dart';
+import 'package:foodiemate/i18n/strings.g.dart';
 import 'package:foodiemate/screens/homescreens/product_listing_page.dart';
 import 'package:foodiemate/widgets/mycustomclipper.dart';
 import 'package:get/get.dart';
@@ -16,12 +18,24 @@ class HomeScreenUi extends StatefulWidget {
 class _HomeScreenUiState extends State<HomeScreenUi> {
   final ThemeController _controller =
       Get.put(ThemeController(), permanent: true);
+  final RestaurantController _restaurantController =
+      Get.put(RestaurantController(), permanent: true);
+  final TextEditingController _searchController = TextEditingController();
 
   // @override
   // void dispose() {
   //   _controller.dispose();
   //   super.dispose();
   // }
+
+  @override
+  void initState() {
+    _restaurantController.fetchRestaurants();
+    _searchController.addListener(() {
+      _restaurantController.searchFunc(_searchController.text);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +50,15 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Deliver to:",
+                      t.deliver_to,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
-                    Text("08776 Serenity Ports, New York ")
+                    Text("08776 Serenity Ports, New York")
                   ],
                 ),
                 const Icon(Icons.person),
@@ -69,6 +83,7 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
             //   ),
             //   child:
             TextField(
+              controller: _searchController,
               decoration: InputDecoration(
                 fillColor: Colors.grey[300],
                 filled: true,
@@ -94,15 +109,15 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
               height: 20,
             ),
 
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Popular Restaurants",
+                  t.popular_restaurants,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  "View all",
+                  t.view_all,
                   style: TextStyle(color: Colors.grey),
                 )
               ],
@@ -110,119 +125,121 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
             const SizedBox(
               height: 20,
             ),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, builder) {
-                    return InkWell(
-                      onTap: () {
-                        Get.to(ProductListingPage());
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // ClipRRect(
-                            //   borderRadius: BorderRadius.circular(30),
-                            //   // clipper: ,
-                            //   child: Image.network(
-                            //     "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-                            //   ),
-                            // ),
-                            Stack(children: [
-                              ClipPath(
-                                clipper: MyCustomClipper(),
-                                child: Image.network(
-                                  "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-                                ),
+            Expanded(child: Obx(() {
+              final restaurants = _restaurantController.filterRestaurants;
+              return ListView.builder(
+                itemCount: restaurants.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    onTap: () {
+                      Get.to(
+                          ProductListingPage(restaurant: restaurants[index]));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // ClipRRect(
+                          //   borderRadius: BorderRadius.circular(30),
+                          //   // clipper: ,
+                          //   child: Image.network(
+                          //     "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
+                          //   ),
+                          // ),
+                          Stack(children: [
+                            ClipPath(
+                              clipper: MyCustomClipper(),
+                              child: Image.network(
+                                "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
                               ),
-                              const Positioned(
-                                  right: 0,
-                                  bottom: 0,
-                                  child: CircleAvatar(
-                                    radius: 25,
-                                    backgroundColor: Colors.black,
-                                    // child:
-                                    // Icon(
-                                    //   Icons.arrow_upward,
-                                    //   color: Colors.white,
-                                    // )
-                                  )),
-                              const Positioned(
-                                right: 14,
-                                bottom: 14,
-                                child: Icon(
-                                  Icons.arrow_upward,
-                                  color: Colors.white,
-                                ),
-                              )
-                            ]),
+                            ),
+                            const Positioned(
+                                right: 0,
+                                bottom: 0,
+                                child: CircleAvatar(
+                                  radius: 25,
+                                  backgroundColor: Colors.black,
+                                  // child:
+                                  // Icon(
+                                  //   Icons.arrow_upward,
+                                  //   color: Colors.white,
+                                  // )
+                                )),
+                            const Positioned(
+                              right: 14,
+                              bottom: 14,
+                              child: Icon(
+                                Icons.arrow_upward,
+                                color: Colors.white,
+                              ),
+                            )
+                          ]),
 
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            const Text(
-                              "The Pizza Palace",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  RatingStars(
-                                    axis: Axis.horizontal,
-                                    value: 3,
-                                    onValueChanged: (v) {
-                                      //
-                                      // setState(() {
-                                      //   value = v;
-                                      // });
-                                    },
-                                    starCount: 5,
-                                    starSize: 20,
-                                    valueLabelColor: const Color(0xff9b9b9b),
-                                    valueLabelTextStyle: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w400,
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 12.0),
-                                    valueLabelRadius: 10,
-                                    maxValue: 5,
-                                    starSpacing: 2,
-                                    maxValueVisibility: true,
-                                    valueLabelVisibility: true,
-                                    animationDuration:
-                                        const Duration(milliseconds: 1000),
-                                    valueLabelPadding:
-                                        const EdgeInsets.symmetric(
-                                            vertical: 1, horizontal: 8),
-                                    valueLabelMargin:
-                                        const EdgeInsets.only(right: 8),
-                                    starOffColor: const Color(0xffe7e8ea),
-                                    starColor: Colors.yellow,
-                                  ),
-                                  const Row(
-                                    children: [
-                                      Icon(
-                                        Icons.location_on,
-                                        color: Colors.grey,
-                                      ),
-                                      Text(
-                                        "2km away",
-                                        style: TextStyle(
-                                            fontSize: 20, color: Colors.grey),
-                                      )
-                                    ],
-                                  )
-                                ]),
-                          ],
-                        ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            restaurants[index].name,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                RatingStars(
+                                  axis: Axis.horizontal,
+                                  value: restaurants[index].rating,
+                                  // onValueChanged: (v) {
+                                  //   //
+                                  //   // setState(() {
+                                  //   //   value = v;
+                                  //   // });
+                                  // },
+                                  starCount: 5,
+                                  starSize: 20,
+                                  valueLabelColor: const Color(0xff9b9b9b),
+                                  valueLabelTextStyle: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 12.0),
+                                  valueLabelRadius: 10,
+                                  maxValue: 5,
+                                  starSpacing: 2,
+                                  maxValueVisibility: true,
+                                  valueLabelVisibility: true,
+                                  animationDuration:
+                                      const Duration(milliseconds: 1000),
+                                  valueLabelPadding: const EdgeInsets.symmetric(
+                                      vertical: 1, horizontal: 8),
+                                  valueLabelMargin:
+                                      const EdgeInsets.only(right: 8),
+                                  starOffColor: const Color(0xffe7e8ea),
+                                  starColor: Colors.yellow,
+                                ),
+                                const Row(
+                                  children: [
+                                    Icon(
+                                      Icons.location_on,
+                                      color: Colors.grey,
+                                    ),
+                                    Text(
+                                      "2km away",
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.grey),
+                                    )
+                                  ],
+                                )
+                              ]),
+                        ],
                       ),
-                    );
-                  }),
-            )
+                    ),
+                  );
+                },
+              );
+            })),
+
             // )
           ],
         ),

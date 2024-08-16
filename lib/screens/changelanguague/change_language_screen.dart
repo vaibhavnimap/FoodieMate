@@ -43,16 +43,32 @@ class ChangeLanguageScreen extends StatelessWidget {
               style: const TextStyle(fontSize: 24.0),
             ),
             Text(
-              t.language,
+              "Current Langauge:- ${t.language}",
               style: const TextStyle(fontSize: 24.0),
             ),
             const SizedBox(height: 20.0),
-            Switch(
-              value: TranslationProvider.of(context).locale == AppLocale.hi,
-              onChanged: (languageSwitched) {
-                final newLocale =
-                    languageSwitched ? AppLocale.hi : AppLocale.en;
-                LocaleSettings.setLocale(newLocale);
+            DropdownButton<AppLocale>(
+              iconSize: 40,
+              value: TranslationProvider.of(context).locale,
+              items: [
+                DropdownMenuItem(
+                  value: AppLocale.en,
+                  child: Text('English'),
+                ),
+                DropdownMenuItem(
+                  value: AppLocale.hi,
+                  child: Text('Hindi'),
+                ),
+                DropdownMenuItem(
+                  value: AppLocale.mr,
+                  child:
+                      Text('Marathi'), // Assuming Spanish is the third language
+                ),
+              ],
+              onChanged: (AppLocale? newLocale) {
+                if (newLocale != null) {
+                  LocaleSettings.setLocale(newLocale);
+                }
               },
             ),
           ],

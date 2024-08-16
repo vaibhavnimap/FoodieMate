@@ -15,8 +15,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  // final RestaurantController _restaurantController =
+  //     Get.put(RestaurantController(), permanent: true);
+
+  // @override
+  // void dispose() {
+  //   _controller.dispose();
+  //   super.dispose();
+  // }
+
   @override
   void initState() {
+    // _restaurantController.fetchRestaurants();
     super.initState();
   }
 

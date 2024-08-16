@@ -39,12 +39,17 @@ dependencies:
   flutter_rating_stars: ^1.1.0
   dotted_border: ^2.1.0
 
+  http: ^1.2.2
+
   firebase_core: ^3.3.0
   firebase_auth: ^5.1.4
 
   slang: ^3.31.1
   slang_flutter: ^3.31.0
 
+
+  flutter_localizations:  # Add this line
+    sdk: flutter
 dev_dependencies:
   flutter_test:
     sdk: flutter
