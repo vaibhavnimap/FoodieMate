@@ -29,11 +29,11 @@ class MyOrdersScreen extends StatelessWidget {
                         strokeWidth: 2,
                         color: Colors.grey,
                         borderType: BorderType.RRect,
-                        radius: Radius.circular(10),
+                        radius: const Radius.circular(10),
                         dashPattern: [5, 5],
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Container(
-                          child: Column(
+                          child: const Column(
                             children: [
                               Row(
                                 mainAxisAlignment:
@@ -73,6 +73,9 @@ class MyOrdersScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w400),
                                   ),
                                 ],
+                              ),
+                              SizedBox(
+                                height: 25,
                               ),
                               Row(
                                 mainAxisAlignment:

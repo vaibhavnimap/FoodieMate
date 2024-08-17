@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodiemate/data/controllers/bag_controller.dart';
 import 'package:foodiemate/data/controllers/product_conrtoller.dart';
 import 'package:foodiemate/data/models/restaurant.dart';
 import 'package:foodiemate/data/utils/constantcolors.dart';
@@ -24,6 +25,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   final ProductController _productController =
       Get.put(ProductController(), permanent: true);
+  final BagController _bagController =
+      Get.put(BagController(), permanent: true);
 
   List<String> drinkLists = [
     "Coke",
@@ -331,7 +334,20 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             Button(
               text: "Add to bag",
               onTap: () {
+                _bagController.addProductToUserBag(
+                  widget.product.productName,
+                  _productController.productSize.value,
+                  _productController.productQuantity.value,
+                  widget.product.productImage,
+                  _productController.productPrice.value,
+                  _productController.initialProductPrice.value,
+                );
                 Get.offAll(() => const HomeScreen());
+                _productController.petDrink.value = '';
+                _productController.productSize.value = '';
+                _productController.productPrice.value =
+                    _productController.initialProductPrice.value;
+                _productController.productQuantity.value = 1;
               },
             ),
             const SizedBox(

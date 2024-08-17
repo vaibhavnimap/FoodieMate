@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:foodiemate/screens/authscreens/loginscreen.dart';
@@ -9,7 +10,42 @@ class AuthController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final forgotPasswordemailcontroller = TextEditingController();
+  final userNameController = TextEditingController();
   final _instance = FirebaseAuth.instance;
+  RxString address = ''.obs;
+  @override
+  void onInit() async {
+    // TODO: implement onInit
+    await updateAddress("ha");
+    getAddress();
+    super.onInit();
+  }
+
+  Future<void> updateAddress(String address) async {
+    User? user = await FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      CollectionReference userAddress = await FirebaseFirestore.instance
+          .collection('userAddress')
+          .doc(user?.uid)
+          .collection('address');
+      userAddress.add({'user_address': "Brahman Alley"});
+    }
+  }
+
+  void getAddress() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+          .instance
+          .collection('userAddress')
+          .doc(user.uid)
+          .collection('address')
+          .get();
+
+      address.value = snapshot.docs.first.data()['user_address'];
+    }
+  }
 
   void register() async {
     String message = "";
@@ -18,7 +54,9 @@ class AuthController extends GetxController {
         email: emailController.text,
         password: passwordController.text,
       );
-
+      _instance.currentUser?.updateProfile(
+        displayName: userNameController.text,
+      );
       CustomSnackBar.success("user created sucessfully");
       Future.delayed(const Duration(seconds: 3), () {
         Get.offAll(HomeScreen());

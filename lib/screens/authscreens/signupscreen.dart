@@ -23,6 +23,39 @@ class Signupscreen extends StatelessWidget {
               height: 20,
             ),
             TextField(
+              controller: _controller.userNameController,
+              decoration: InputDecoration(
+                fillColor: Colors.grey[300],
+                filled: true,
+                // prefixIcon: Icon(
+                //   Icons.search,
+                //   size: 30,
+                // ),
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                      width: 2,
+                      style: BorderStyle.solid,
+                      color: Colors.orangeAccent),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                ),
+
+                hintText: 'Username...',
+                // enabledBorder: ,
+                // contentPadding:
+                //     const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 0,
+                    style: BorderStyle.none,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            TextField(
               controller: _controller.emailController,
               decoration: InputDecoration(
                 fillColor: Colors.grey[300],

@@ -9,6 +9,7 @@ class Profilescreen extends StatelessWidget {
   Profilescreen({super.key});
 
   final AuthController _controller = Get.put(AuthController(), permanent: true);
+  final _instance = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +41,19 @@ class Profilescreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
-                  "Amelia Cassin",
+                Text(
+                  _instance.currentUser?.displayName ?? "Amelia Cassin",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "102 st ports, NEW YORK",
+                      _controller.address.value,
+                      // "102 st ports, NEW YORK",
                       style: TextStyle(
                           overflow: TextOverflow.ellipsis,
                           color: ConstantColors.greyblack),
