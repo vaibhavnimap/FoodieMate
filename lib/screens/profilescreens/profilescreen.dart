@@ -1,14 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodiemate/data/controllers/auth_controller.dart';
+import 'package:foodiemate/data/controllers/image_controller.dart';
 import 'package:foodiemate/data/utils/constantcolors.dart';
 import 'package:foodiemate/screens/changelanguague/change_language_screen.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Profilescreen extends StatelessWidget {
   Profilescreen({super.key});
 
   final AuthController _controller = Get.put(AuthController(), permanent: true);
+  final ImageController _imageController =
+      Get.put(ImageController(), permanent: true);
   final _instance = FirebaseAuth.instance;
 
   void updateAddress(BuildContext ctx) {
@@ -19,15 +23,14 @@ class Profilescreen extends StatelessWidget {
       context: ctx,
       builder: (ctx) => Container(
         height: MediaQuery.of(ctx).size.height * 0.5,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(30.0),
-              topRight: const Radius.circular(30.0)),
+              topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
         ),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 11,
             ),
             Center(
@@ -36,13 +39,13 @@ class Profilescreen extends StatelessWidget {
                 width: 40,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    color: Color(0xffEEEEEE),
+                    color: const Color(0xffEEEEEE),
                     borderRadius: BorderRadius.circular(11),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
@@ -53,7 +56,7 @@ class Profilescreen extends StatelessWidget {
                   TextField(
                     controller: controller.addressController,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   ElevatedButton(
@@ -62,7 +65,7 @@ class Profilescreen extends StatelessWidget {
                           .updateAddress(controller.addressController.text);
                       Get.back();
                     },
-                    child: Text("Save Address"),
+                    child: const Text("Save Address"),
                   )
                 ],
               ),
@@ -94,19 +97,39 @@ class Profilescreen extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  CircleAvatar(
-                    radius: 50, // Adjust the radius for the size you want
-                    backgroundImage: const NetworkImage(
-                      "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
+                  Stack(children: [
+                    CircleAvatar(
+                      radius: 50, // Adjust the radius for the size you want
+                      backgroundImage: _imageController.imageUrl != null &&
+                              _imageController.imageUrl!.isNotEmpty
+                          ? NetworkImage(_imageController.imageUrl!.value)
+                          : const NetworkImage(
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkE0kQxLcPKeywJEZDgVQ8AYjh-n-ToAfUrw&s"),
+                      backgroundColor: Colors.grey.shade200, // A default colo
                     ),
-                    backgroundColor: Colors.grey.shade200, // A default colo
-                  ),
+                    Positioned(
+                        right: 0,
+                        bottom: 0,
+                        child: InkWell(
+                          onTap: () {
+                            _imageController
+                                .pickAndUploadImage(ImageSource.gallery);
+                          },
+                          child: const CircleAvatar(
+                            radius: 20,
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ))
+                  ]),
                   const SizedBox(
                     height: 10,
                   ),
                   Text(
                     _instance.currentUser?.displayName ?? "Amelia Cassin",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
@@ -117,11 +140,11 @@ class Profilescreen extends StatelessWidget {
                       Text(
                         _controller.address.value,
                         // "102 st ports, NEW YORK",
-                        style: TextStyle(
+                        style: const TextStyle(
                             overflow: TextOverflow.ellipsis,
                             color: ConstantColors.greyblack),
                       ),
-                      Icon(Icons.keyboard_arrow_down),
+                      const Icon(Icons.keyboard_arrow_down),
                     ],
                   ),
                   const Text(
@@ -222,7 +245,7 @@ class Profilescreen extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.to(() => ChangeLanguageScreen());
+                      Get.to(() => const ChangeLanguageScreen());
                     },
                     child: Row(
                       children: [

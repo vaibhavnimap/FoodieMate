@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
-  final BagController bagController = Get.put(BagController());
+  final BagController bagController = Get.put(BagController(),permanent: true);
 
   @override
   Widget build(BuildContext context) {

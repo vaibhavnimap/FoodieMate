@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final BottomNavigationbarController controller =
-      Get.put(BottomNavigationbarController());
+      Get.put(BottomNavigationbarController(),permanent: true);
 
   List<Widget> _pages = <Widget>[
     HomeScreenUi(),

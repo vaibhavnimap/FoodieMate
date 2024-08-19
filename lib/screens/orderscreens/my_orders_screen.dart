@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class MyOrdersScreen extends StatelessWidget {
   MyOrdersScreen({super.key});
 
-  final OrderController orderController = Get.put(OrderController());
+  final OrderController orderController = Get.put(OrderController(),permanent: true);
 
   @override
   Widget build(BuildContext context) {
