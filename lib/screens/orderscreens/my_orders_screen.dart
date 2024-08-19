@@ -1,8 +1,12 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:foodiemate/data/controllers/order_controller.dart';
+import 'package:get/get.dart';
 
 class MyOrdersScreen extends StatelessWidget {
-  const MyOrdersScreen({super.key});
+  MyOrdersScreen({super.key});
+
+  final OrderController orderController = Get.put(OrderController());
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +25,8 @@ class MyOrdersScreen extends StatelessWidget {
           children: [
             Expanded(
               child: ListView.builder(
-                  itemCount: 40,
-                  itemBuilder: (context, build) {
+                  itemCount: orderController.orders.length,
+                  itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: DottedBorder(
@@ -33,19 +37,20 @@ class MyOrdersScreen extends StatelessWidget {
                         dashPattern: [5, 5],
                         padding: const EdgeInsets.all(10),
                         child: Container(
-                          child: const Column(
+                          child: Column(
                             children: [
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "The Pizza Place ",
-                                    style: TextStyle(
+                                    orderController.orders[index]
+                                        ['product_name'],
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  Row(
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.circle,
@@ -62,7 +67,7 @@ class MyOrdersScreen extends StatelessWidget {
                                   )
                                 ],
                               ),
-                              Row(
+                              const Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
@@ -74,10 +79,10 @@ class MyOrdersScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 25,
                               ),
-                              Row(
+                              const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -102,14 +107,15 @@ class MyOrdersScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "\$${83.66}",
-                                    style: TextStyle(
+                                    "\$${orderController.orders[index]['price'].toStringAsFixed(2)}",
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    "4",
-                                    style: TextStyle(
+                                    orderController.orders[index]['quantity']
+                                        .toString(),
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold),
                                   )

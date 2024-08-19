@@ -10,7 +10,8 @@ class RestaurantController extends GetxController {
 
   Future<void> fetchRestaurants() async {
     final url =
-        'https://mocki.io/v1/f4ddd0f0-8ac3-40b8-a700-edb82cdbb131'; // Replace with your API URL
+        'https://mocki.io/v1/ce484d1c-f1e0-4513-97fb-5f60e6ac035c'; // Replace with your API URL
+    https: //mocki.io/v1/ce484d1c-f1e0-4513-97fb-5f60e6ac035c
 
     final response = await http.get(Uri.parse(url));
     print(response.body);

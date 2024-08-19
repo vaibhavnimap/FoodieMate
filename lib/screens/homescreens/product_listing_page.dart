@@ -41,9 +41,7 @@ class _ProductListingPageState extends State<ProductListingPage>
         children: [
           Stack(
             children: [
-              Image.network(
-                "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-              ),
+              Image.network(widget.restaurant.image),
               Positioned(
                 top: 50,
                 left: 20,
@@ -79,12 +77,15 @@ class _ProductListingPageState extends State<ProductListingPage>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        widget.restaurant.name,
-                        style: TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold),
+                      SizedBox(
+                        child: Text(
+                          widget.restaurant.name,
+                          style: TextStyle(
+                              // overflow: TextOverflow.ellipsis,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        width: MediaQuery.sizeOf(context).width * 0.5,
                       ),
                       Text(
                         "20-30 mins delivery",
@@ -201,7 +202,11 @@ class _ProductListingPageState extends State<ProductListingPage>
                                 leading: Container(
                                   height: 100,
                                   width: 100,
-                                  child: Image.asset('assets/images/pizza.png'),
+                                  child: Image.network(widget
+                                      .restaurant
+                                      .category[index]
+                                      .product[indexx]
+                                      .productImage),
                                 ),
                                 title: Text(widget.restaurant.category[index]
                                     .product[indexx].productName),

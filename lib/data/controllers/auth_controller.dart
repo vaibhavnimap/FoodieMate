@@ -11,12 +11,14 @@ class AuthController extends GetxController {
   final passwordController = TextEditingController();
   final forgotPasswordemailcontroller = TextEditingController();
   final userNameController = TextEditingController();
+  final addressController = TextEditingController();
   final _instance = FirebaseAuth.instance;
   RxString address = ''.obs;
+
   @override
-  void onInit() async {
+  void onInit() {
     // TODO: implement onInit
-    await updateAddress("ha");
+    updateAddress("Brahman Alley");
     getAddress();
     super.onInit();
   }
@@ -28,8 +30,9 @@ class AuthController extends GetxController {
           .collection('userAddress')
           .doc(user?.uid)
           .collection('address');
-      userAddress.add({'user_address': "Brahman Alley"});
+      userAddress.add({'user_address': address});
     }
+    getAddress();
   }
 
   void getAddress() async {
@@ -44,6 +47,7 @@ class AuthController extends GetxController {
           .get();
 
       address.value = snapshot.docs.first.data()['user_address'];
+      addressController.text = address.value;
     }
   }
 

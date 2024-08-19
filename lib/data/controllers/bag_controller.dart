@@ -131,4 +131,47 @@ class BagController extends GetxController {
       subTotal.value = total;
     }
   }
+
+  Future<void> placeOrder() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      CollectionReference orderCollection = FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('order');
+
+      // Save each product in the order collection
+      for (var product in products) {
+        await orderCollection.add({
+          'product_name': product['product_name'],
+          'price': product['price'],
+          'quantity': product['quantity'],
+        });
+      }
+
+      // Clear the bag after placing the order
+      await clearUserBag();
+    }
+  }
+
+  Future<void> clearUserBag() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+          .instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('bag')
+          .get();
+
+      for (var doc in snapshot.docs) {
+        await doc.reference.delete();
+      }
+
+      products.clear();
+      subTotal.value = 0.0;
+    }
+  }
 }

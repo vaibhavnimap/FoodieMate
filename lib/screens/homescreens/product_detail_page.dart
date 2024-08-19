@@ -90,7 +90,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Image.asset("assets/images/pizza.png"),
+                    Image.network(
+                      widget.product.productImage,
+                    ),
                     const SizedBox(
                       height: 10,
                     ),

@@ -45,7 +45,7 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
         child: Column(
           children: [
             const SizedBox(
-              height: 50,
+              height: 40,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,26 +82,32 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
             //     borderRadius: BorderRadius.all(Radius.circular(20)),
             //   ),
             //   child:
-            TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                fillColor: Colors.grey[300],
-                filled: true,
-                prefixIcon: const Icon(
-                  Icons.search,
-                  size: 30,
-                ),
-
-                hintText: 'Search Near By Restaurants Names',
-                // enabledBorder: ,
-                // contentPadding:
-                //     const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
+            Obx(
+              () => TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  fillColor: Colors.grey[300],
+                  filled: true,
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    size: 30,
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+
+                  hintText: 'Search Near By Restaurants Names',
+                  hintStyle: TextStyle(
+                      color: _controller.currentTheme.value == ThemeMode.dark
+                          ? Colors.grey[500]
+                          : Colors.grey[500]),
+                  // enabledBorder: ,
+                  // contentPadding:
+                  //     const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  ),
                 ),
               ),
             ),
@@ -123,7 +129,7 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Expanded(child: Obx(() {
               final restaurants = _restaurantController.filterRestaurants;
@@ -151,7 +157,10 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
                             ClipPath(
                               clipper: MyCustomClipper(),
                               child: Image.network(
-                                "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
+                                restaurants[index].image,
+                                fit: BoxFit.fill,
+                                height: 250,
+                                width: double.infinity,
                               ),
                             ),
                             const Positioned(
@@ -218,14 +227,14 @@ class _HomeScreenUiState extends State<HomeScreenUi> {
                                   starOffColor: const Color(0xffe7e8ea),
                                   starColor: Colors.yellow,
                                 ),
-                                const Row(
+                                Row(
                                   children: [
                                     Icon(
                                       Icons.location_on,
                                       color: Colors.grey,
                                     ),
                                     Text(
-                                      "2km away",
+                                      "${restaurants[index].location}km away",
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.grey),
                                     )

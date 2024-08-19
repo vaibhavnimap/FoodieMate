@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:foodiemate/data/controllers/bag_controller.dart';
+import 'package:foodiemate/data/controllers/bottom_navigationbar.dart';
+import 'package:foodiemate/screens/home_screen.dart';
 import 'package:foodiemate/widgets/custom_button/custom_button.dart';
 import 'package:get/get.dart';
 
 class CheckoutScreen extends StatelessWidget {
-  const CheckoutScreen({super.key});
+  CheckoutScreen({super.key});
+
+  final BagController bagController = Get.find<BagController>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +41,13 @@ class CheckoutScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Row(
+            const Row(
               children: [
                 Text(
                   "Deliver to:",
@@ -50,7 +55,7 @@ class CheckoutScreen extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
@@ -59,10 +64,10 @@ class CheckoutScreen extends StatelessWidget {
                     height: 100,
                     width: 100,
                     child: Image.asset("assets/images/mapimage.png")),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -85,10 +90,10 @@ class CheckoutScreen extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -104,7 +109,7 @@ class CheckoutScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Container(
@@ -113,21 +118,21 @@ class CheckoutScreen extends StatelessWidget {
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(20),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               // margin: EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [Text("Bank Card"), Icon(Icons.keyboard_arrow_down)],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Image.asset('assets/images/debitcard.png'),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -138,16 +143,20 @@ class CheckoutScreen extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold))
               ],
             ),
-            Expanded(
+            const Expanded(
               child: SizedBox(),
             ),
             Button(
               onTap: () {
-                Get.to(CheckoutScreen());
+                final controller = Get.find<BottomNavigationbarController>();
+
+                controller.onItemTapped(2);
+                bagController.placeOrder();
+                Get.offAll(() => HomeScreen());
               },
               text: "Comfirm Order",
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             )
           ],

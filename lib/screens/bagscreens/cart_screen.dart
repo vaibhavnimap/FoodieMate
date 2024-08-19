@@ -281,71 +281,83 @@ class CartScreen extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              TextField(
-                decoration: InputDecoration(
-                  fillColor: Colors.grey[300],
-                  filled: true,
+              SizedBox(
+                height: 50,
+                child: TextField(
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey[300],
+                    filled: true,
 
-                  suffixIcon: Container(
-                    width: 150,
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(20))),
-                    child: Icon(
-                      Icons.send,
-                      size: 20,
-                      color: Colors.white,
+                    suffixIcon: Container(
+                      width: 100,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20),
+                              bottomRight: Radius.circular(20))),
+                      child: Icon(
+                        Icons.send,
+                        size: 20,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
 
-                  hintText: 'Enter Promo Code',
-                  // enabledBorder: ,
-                  // contentPadding:
-                  //     const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
+                    hintText: 'Enter Promo Code',
+                    // enabledBorder: ,
+                    // contentPadding:
+                    //     const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
                     ),
-                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
                   ),
                 ),
               ),
               SizedBox(
                 height: 10,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Subtotal"),
-                  Text("\$${bagController.subTotal.value.toStringAsFixed(2)}")
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Subtotal"),
+                        Text(
+                            "\$${bagController.subTotal.value.toStringAsFixed(2)}")
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [Text("Delivery"), Text("\$${29.00}")],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Total",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                            "\$${(bagController.subTotal.value + 29.00).toStringAsFixed(2)}",
+                            style: TextStyle(fontWeight: FontWeight.bold))
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text("Delivery"), Text("\$${29.00}")],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Total",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                      "\$${(bagController.subTotal.value + 29.00).toStringAsFixed(2)}",
-                      style: TextStyle(fontWeight: FontWeight.bold))
-                ],
-              ),
+
               SizedBox(
                 height: 5,
               ),
